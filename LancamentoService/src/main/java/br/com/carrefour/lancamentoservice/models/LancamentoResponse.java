@@ -13,6 +13,4 @@ public class LancamentoResponse {
     private long lancamentoId;
     private String descricao;
     private double valor;
-
-
 }

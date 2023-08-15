@@ -25,4 +25,11 @@ public class LancamentoController {
         LancamentoResponse lancamentoResponse = lancamentoService.lerLancamentoPorId(lancamentoId);
         return new ResponseEntity<>(lancamentoResponse, HttpStatus.OK);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> alterarLancamentoPorId(@PathVariable("id") long lancamentoId,
+                                                       @RequestBody LancamentoRequest lancamentoRequest) {
+        lancamentoService.alterarLancamentoPorId(lancamentoId, lancamentoRequest);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

@@ -46,4 +46,18 @@ public class LancamentoServiceImpl implements LancamentoService {
 
         return lancamentoResponse;
     }
+
+    @Override
+    public void alterarLancamentoPorId(long lancamentoId, LancamentoRequest lancamentoRequest) {
+        log.info("Lendo lançamento para o id {}", lancamentoId);
+
+        Lancamento lancamento = lancamentoRepository.findById(lancamentoId)
+                .orElseThrow(() -> new LancamentoServiceCustomException("Lançamento com id " + lancamentoId + " não encontrado", "LANÇAMENTO_NÃO_ENCONTRADO"));
+
+        copyProperties(lancamentoRequest, lancamento);
+
+        lancamentoRepository.save(lancamento);
+
+        log.info("Lançamento com id {} alterado", lancamentoId);
+    }
 }
