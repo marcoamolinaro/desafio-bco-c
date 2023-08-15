@@ -60,4 +60,16 @@ public class LancamentoServiceImpl implements LancamentoService {
 
         log.info("Lançamento com id {} alterado", lancamentoId);
     }
+
+    @Override
+    public void deletarLancamentoPorId(long lancamentoId) {
+        log.info("Lendo lançamento para o id {}", lancamentoId);
+
+        Lancamento lancamento = lancamentoRepository.findById(lancamentoId)
+                .orElseThrow(() -> new LancamentoServiceCustomException("Lançamento com id " + lancamentoId + " não encontrado", "LANÇAMENTO_NÃO_ENCONTRADO"));
+
+        lancamentoRepository.delete(lancamento);
+
+        log.info("Lançamento com id {} removido", lancamentoId);
+    }
 }

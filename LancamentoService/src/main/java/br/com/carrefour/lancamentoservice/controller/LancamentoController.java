@@ -32,4 +32,10 @@ public class LancamentoController {
         lancamentoService.alterarLancamentoPorId(lancamentoId, lancamentoRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarLancamentoPorId(@PathVariable("id") long lancamentoId) {
+        lancamentoService.deletarLancamentoPorId(lancamentoId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

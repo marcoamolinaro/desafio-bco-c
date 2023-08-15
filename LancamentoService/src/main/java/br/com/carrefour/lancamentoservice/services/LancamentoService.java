@@ -9,4 +9,6 @@ public interface LancamentoService {
     LancamentoResponse lerLancamentoPorId(long lancamentoId);
 
     void alterarLancamentoPorId(long lancamentoId, LancamentoRequest lancamentoRequest);
+
+    void deletarLancamentoPorId(long lancamentoId);
 }
