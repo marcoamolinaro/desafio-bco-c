@@ -1,14 +1,15 @@
-package br.com.carrefour.lancamentoservice.services;
+package br.com.carrefour.lancamentoservice.service;
 
-import br.com.carrefour.lancamentoservice.entities.Lancamento;
-import br.com.carrefour.lancamentoservice.exceptions.LancamentoServiceCustomException;
-import br.com.carrefour.lancamentoservice.models.LancamentoRequest;
-import br.com.carrefour.lancamentoservice.models.LancamentoResponse;
-import br.com.carrefour.lancamentoservice.repositories.LancamentoRepository;
+import br.com.carrefour.lancamentoservice.entity.Lancamento;
+import br.com.carrefour.lancamentoservice.exception.LancamentoServiceCustomException;
+import br.com.carrefour.lancamentoservice.model.LancamentoRequest;
+import br.com.carrefour.lancamentoservice.model.LancamentoResponse;
+import br.com.carrefour.lancamentoservice.repository.LancamentoRepository;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.Instant;
 
 import static org.springframework.beans.BeanUtils.*;
 
@@ -23,6 +24,7 @@ public class LancamentoServiceImpl implements LancamentoService {
 
         Lancamento lancamento =
                 Lancamento.builder()
+                        .dataLancamento(Instant.now())
                         .descricao(lancamentoRequest.getDescricao())
                         .valor(lancamentoRequest.getValor())
                         .build();

@@ -1,7 +1,7 @@
-package br.com.carrefour.lancamentoservice.services;
+package br.com.carrefour.lancamentoservice.service;
 
-import br.com.carrefour.lancamentoservice.models.LancamentoRequest;
-import br.com.carrefour.lancamentoservice.models.LancamentoResponse;
+import br.com.carrefour.lancamentoservice.model.LancamentoRequest;
+import br.com.carrefour.lancamentoservice.model.LancamentoResponse;
 
 public interface LancamentoService {
     long adicionarLancamento(LancamentoRequest lancamentoRequest);

@@ -1,8 +1,8 @@
 package br.com.carrefour.lancamentoservice.controller;
 
-import br.com.carrefour.lancamentoservice.models.LancamentoRequest;
-import br.com.carrefour.lancamentoservice.models.LancamentoResponse;
-import br.com.carrefour.lancamentoservice.services.LancamentoService;
+import br.com.carrefour.lancamentoservice.model.LancamentoRequest;
+import br.com.carrefour.lancamentoservice.model.LancamentoResponse;
+import br.com.carrefour.lancamentoservice.service.LancamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
-package br.com.carrefour.lancamentoservice.repositories;
+package br.com.carrefour.lancamentoservice.repository;
 
-import br.com.carrefour.lancamentoservice.entities.Lancamento;
+import br.com.carrefour.lancamentoservice.entity.Lancamento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

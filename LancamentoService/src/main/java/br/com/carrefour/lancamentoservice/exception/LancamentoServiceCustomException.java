@@ -1,4 +1,4 @@
-package br.com.carrefour.lancamentoservice.exceptions;
+package br.com.carrefour.lancamentoservice.exception;
 
 import lombok.Data;
 

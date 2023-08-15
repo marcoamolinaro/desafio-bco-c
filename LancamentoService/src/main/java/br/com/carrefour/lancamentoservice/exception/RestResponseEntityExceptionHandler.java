@@ -1,6 +1,6 @@
-package br.com.carrefour.lancamentoservice.exceptions;
+package br.com.carrefour.lancamentoservice.exception;
 
-import br.com.carrefour.lancamentoservice.models.ErrorResponse;
+import br.com.carrefour.lancamentoservice.model.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

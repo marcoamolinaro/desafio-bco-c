@@ -1,4 +1,4 @@
-package br.com.carrefour.lancamentoservice.models;
+package br.com.carrefour.lancamentoservice.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
