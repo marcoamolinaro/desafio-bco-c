@@ -1,5 +1,6 @@
 package br.com.carrefour.lancamentoservice.controller;
 
+import br.com.carrefour.lancamentoservice.entity.Lancamento;
 import br.com.carrefour.lancamentoservice.model.LancamentoRequest;
 import br.com.carrefour.lancamentoservice.model.LancamentoResponse;
 import br.com.carrefour.lancamentoservice.service.LancamentoService;
@@ -7,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/lancamento")
@@ -24,6 +28,13 @@ public class LancamentoController {
     public ResponseEntity<LancamentoResponse> lerLancamentoPorId(@PathVariable("id") long lancamentoId) {
         LancamentoResponse lancamentoResponse = lancamentoService.lerLancamentoPorId(lancamentoId);
         return new ResponseEntity<>(lancamentoResponse, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<LancamentoResponse>> lerTodosLancamentos() {
+        List<LancamentoResponse> lancamentoResponses = lancamentoService.lerTodosLancamentos();
+
+        return new ResponseEntity<>(lancamentoResponses, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")

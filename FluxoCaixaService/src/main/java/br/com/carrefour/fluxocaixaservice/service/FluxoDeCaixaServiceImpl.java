@@ -1,0 +1,57 @@
+package br.com.carrefour.fluxocaixaservice.service;
+
+import br.com.carrefour.fluxocaixaservice.external.client.model.FluxoDeCaixaResponse;
+import br.com.carrefour.fluxocaixaservice.external.client.model.LancamentoResponse;
+import br.com.carrefour.fluxocaixaservice.external.client.service.LancamentoService;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Service
+@Log4j2
+public class FluxoDeCaixaServiceImpl implements FluxoDeCaixaService {
+
+    @Autowired
+    private LancamentoService lancametoService;
+
+    @Override
+    public List<LancamentoResponse> lerLancamentos() {
+        log.info("Lendo lançamentos por Fluxo de Caixa");
+        ResponseEntity<List<LancamentoResponse>> lancamentoResponses =lancametoService.lerTodosLancamentos();
+        log.info(lancamentoResponses.getBody());
+        return lancamentoResponses.getBody();
+    }
+
+    @Override
+    public List<FluxoDeCaixaResponse> consolidadoDiario() {
+       log.info("Obter Lançamentos Consolidados por Dia");
+        List<LancamentoResponse> lancamentoResponses = lancametoService.lerTodosLancamentos().getBody();
+        Map<String, Double> consolidado = new HashMap<>();
+        List<FluxoDeCaixaResponse> fluxoDeCaixaResponses = new ArrayList<>();
+        double saldo = 0.0;
+        for (LancamentoResponse l : lancamentoResponses) {
+            String data = l.getDataLancamento().toString().substring(0, 10);
+            log.info("Data [" + data + "]");
+            if (consolidado.containsKey(data)) {
+                saldo = consolidado.get(data) + l.getValor();
+            } else {
+                saldo = l.getValor();
+            }
+            consolidado.put(data, saldo);
+        }
+        for (Map.Entry<String, Double> map : consolidado.entrySet()) {
+            FluxoDeCaixaResponse fluxoDeCaixaResponse = new FluxoDeCaixaResponse();
+            fluxoDeCaixaResponse.setDataLancamento(map.getKey());
+            fluxoDeCaixaResponse.setValor(map.getValue());
+            fluxoDeCaixaResponses.add(fluxoDeCaixaResponse);
+        }
+        return fluxoDeCaixaResponses;
+    }
+}
