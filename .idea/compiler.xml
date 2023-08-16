@@ -11,11 +11,13 @@
         <module name="ServiceRegistry" />
         <module name="ConfigServer" />
         <module name="FluxoCaixaService" />
+        <module name="CloudGateway" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="CloudGateway" options="-parameters" />
       <module name="ConfigServer" options="-parameters" />
       <module name="FluxoCaixaService" options="-parameters" />
       <module name="LancamentoService" options="-parameters" />

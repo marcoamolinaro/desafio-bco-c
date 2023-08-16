@@ -1,0 +1,19 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: API-GATEWAY
+  config:
+    import: configserver:http://localhost:9296
+  cloud:
+    gateway:
+      routes:
+        - id: LANCAMENTO-SERVICE
+          uri: lb://LANCAMENTO-SERVICE
+          predicates:
+            - Path=/lancamento/**
+        - id: FLUXODECAIXA-SERVICE
+          uri: lb://FLUXODECAIXA-SERVICE
+          predicates:
+            - Path=/fluxodecaixa/**
