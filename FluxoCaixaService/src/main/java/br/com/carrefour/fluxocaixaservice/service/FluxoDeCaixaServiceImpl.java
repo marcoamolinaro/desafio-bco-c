@@ -1,6 +1,6 @@
 package br.com.carrefour.fluxocaixaservice.service;
 
-import br.com.carrefour.fluxocaixaservice.external.client.model.FluxoDeCaixaResponse;
+import br.com.carrefour.fluxocaixaservice.model.FluxoDeCaixaResponse;
 import br.com.carrefour.fluxocaixaservice.external.client.model.LancamentoResponse;
 import br.com.carrefour.fluxocaixaservice.external.client.service.LancamentoService;
 import lombok.extern.log4j.Log4j2;
@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,8 +30,9 @@ public class FluxoDeCaixaServiceImpl implements FluxoDeCaixaService {
 
     @Override
     public List<FluxoDeCaixaResponse> consolidadoDiario() {
-       log.info("Obter Lançamentos Consolidados por Dia");
+        log.info("Obter Lançamentos");
         List<LancamentoResponse> lancamentoResponses = lancametoService.lerTodosLancamentos().getBody();
+
         Map<String, Double> consolidado = new HashMap<>();
         List<FluxoDeCaixaResponse> fluxoDeCaixaResponses = new ArrayList<>();
         double saldo = 0.0;
@@ -47,9 +47,11 @@ public class FluxoDeCaixaServiceImpl implements FluxoDeCaixaService {
             consolidado.put(data, saldo);
         }
         for (Map.Entry<String, Double> map : consolidado.entrySet()) {
-            FluxoDeCaixaResponse fluxoDeCaixaResponse = new FluxoDeCaixaResponse();
-            fluxoDeCaixaResponse.setDataLancamento(map.getKey());
-            fluxoDeCaixaResponse.setValor(map.getValue());
+            FluxoDeCaixaResponse fluxoDeCaixaResponse = FluxoDeCaixaResponse
+                    .builder()
+                    .dataLancamento(map.getKey())
+                    .valor(map.getValue())
+                    .build();
             fluxoDeCaixaResponses.add(fluxoDeCaixaResponse);
         }
         return fluxoDeCaixaResponses;

@@ -1,6 +1,6 @@
 package br.com.carrefour.fluxocaixaservice.controller;
 
-import br.com.carrefour.fluxocaixaservice.external.client.model.FluxoDeCaixaResponse;
+import br.com.carrefour.fluxocaixaservice.model.FluxoDeCaixaResponse;
 import br.com.carrefour.fluxocaixaservice.external.client.model.LancamentoResponse;
 import br.com.carrefour.fluxocaixaservice.service.FluxoDeCaixaService;
 import lombok.extern.log4j.Log4j2;

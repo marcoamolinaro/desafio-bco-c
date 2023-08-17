@@ -1,4 +1,4 @@
-package br.com.carrefour.fluxocaixaservice.external.client.model;
+package br.com.carrefour.fluxocaixaservice.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
