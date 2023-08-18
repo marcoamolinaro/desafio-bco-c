@@ -10,5 +10,5 @@ import java.util.List;
 @FeignClient("LANCAMENTO-SERVICE/lancamento")
 public interface LancamentoService {
     @GetMapping
-    List<LancamentoResponse> lerTodosLancamentos();
+    ResponseEntity<List<LancamentoResponse>> lerTodosLancamentos();
 }
