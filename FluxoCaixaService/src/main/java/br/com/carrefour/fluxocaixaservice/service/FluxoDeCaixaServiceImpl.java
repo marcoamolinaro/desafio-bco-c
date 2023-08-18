@@ -61,11 +61,11 @@ public class FluxoDeCaixaServiceImpl implements FluxoDeCaixaService {
 
         for (LancamentoResponse l : lancamentoResponses) {
             String data = l.getDataLancamento().toString().substring(0, 10);
-            if (mapConsolidado.containsKey(data)) {
-                saldo = mapConsolidado.get(data) + l.getValor();
-            } else {
-                saldo = l.getValor();
-            }
+
+            saldo = (mapConsolidado.containsKey(data)) ?
+                    mapConsolidado.get(data) + l.getValor() :
+                    l.getValor();
+
             mapConsolidado.put(data, saldo);
         }
 
