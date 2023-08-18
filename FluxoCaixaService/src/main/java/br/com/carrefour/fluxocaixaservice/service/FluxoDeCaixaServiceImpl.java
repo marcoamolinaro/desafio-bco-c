@@ -38,17 +38,8 @@ public class FluxoDeCaixaServiceImpl implements FluxoDeCaixaService {
         Map<String, Double> consolidado = new HashMap<>();
         List<FluxoDeCaixaResponse> fluxoDeCaixaResponses = new ArrayList<>();
 
-        double saldo = 0.0;
+        consolidado = consolidarLancamentos(lancamentoResponses, consolidado);
 
-        for (LancamentoResponse l : lancamentoResponses) {
-            String data = l.getDataLancamento().toString().substring(0, 10);
-            if (consolidado.containsKey(data)) {
-                saldo = consolidado.get(data) + l.getValor();
-            } else {
-                saldo = l.getValor();
-            }
-            consolidado.put(data, saldo);
-        }
         for (Map.Entry<String, Double> map : consolidado.entrySet()) {
             FluxoDeCaixaResponse fluxoDeCaixaResponse = FluxoDeCaixaResponse
                     .builder()
@@ -61,5 +52,23 @@ public class FluxoDeCaixaServiceImpl implements FluxoDeCaixaService {
         log.info("Retornando " + fluxoDeCaixaResponses.size() + " lançamento(s) consolidado(s)");
 
         return fluxoDeCaixaResponses;
+    }
+
+    private Map<String, Double> consolidarLancamentos(List<LancamentoResponse> lancamentoResponses, Map<String, Double> consolidado) {
+        double saldo = 0.0;
+
+        Map<String, Double> mapConsolidado = new HashMap<>();
+
+        for (LancamentoResponse l : lancamentoResponses) {
+            String data = l.getDataLancamento().toString().substring(0, 10);
+            if (mapConsolidado.containsKey(data)) {
+                saldo = mapConsolidado.get(data) + l.getValor();
+            } else {
+                saldo = l.getValor();
+            }
+            mapConsolidado.put(data, saldo);
+        }
+
+        return mapConsolidado;
     }
 }
