@@ -33,6 +33,8 @@ public class FluxoDeCaixaServiceImpl implements FluxoDeCaixaService {
         log.info("Obter Lançamentos");
         List<LancamentoResponse> lancamentoResponses = lancametoService.lerTodosLancamentos().getBody();
 
+        log.info("Obtendo " + lancamentoResponses.size() +  " lançamento(s)");
+
         Map<String, Double> consolidado = new HashMap<>();
         List<FluxoDeCaixaResponse> fluxoDeCaixaResponses = new ArrayList<>();
 
@@ -40,7 +42,6 @@ public class FluxoDeCaixaServiceImpl implements FluxoDeCaixaService {
 
         for (LancamentoResponse l : lancamentoResponses) {
             String data = l.getDataLancamento().toString().substring(0, 10);
-            log.info("Data [" + data + "]");
             if (consolidado.containsKey(data)) {
                 saldo = consolidado.get(data) + l.getValor();
             } else {
@@ -56,6 +57,9 @@ public class FluxoDeCaixaServiceImpl implements FluxoDeCaixaService {
                     .build();
             fluxoDeCaixaResponses.add(fluxoDeCaixaResponse);
         }
+
+        log.info("Retornando " + fluxoDeCaixaResponses.size() + " lançamento(s) consolidado(s)");
+
         return fluxoDeCaixaResponses;
     }
 }
