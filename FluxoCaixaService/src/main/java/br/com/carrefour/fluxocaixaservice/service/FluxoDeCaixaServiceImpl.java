@@ -35,7 +35,9 @@ public class FluxoDeCaixaServiceImpl implements FluxoDeCaixaService {
 
         Map<String, Double> consolidado = new HashMap<>();
         List<FluxoDeCaixaResponse> fluxoDeCaixaResponses = new ArrayList<>();
+
         double saldo = 0.0;
+
         for (LancamentoResponse l : lancamentoResponses) {
             String data = l.getDataLancamento().toString().substring(0, 10);
             log.info("Data [" + data + "]");
