@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,25 +21,33 @@ public class FluxoDeCaixaServiceImpl implements FluxoDeCaixaService {
     @Autowired
     private LancamentoService lancametoService;
 
+    @Autowired
+    RestTemplate restTemplate;
+
     @Override
     public List<LancamentoResponse> lerLancamentos() {
         log.info("Lendo lançamentos por Fluxo de Caixa");
-        ResponseEntity<List<LancamentoResponse>> lancamentoResponses =lancametoService.lerTodosLancamentos();
-        log.info(lancamentoResponses.getBody());
-        return lancamentoResponses.getBody();
+        List<LancamentoResponse> lancamentoResponses =lancametoService.lerTodosLancamentos();
+        log.info(lancamentoResponses);
+        return lancamentoResponses;
     }
 
     @Override
     public List<FluxoDeCaixaResponse> consolidadoDiario() {
         log.info("Obter Lançamentos");
-        List<LancamentoResponse> lancamentoResponses = lancametoService.lerTodosLancamentos().getBody();
+        List<LancamentoResponse> lancamentoResponses = lancametoService.lerTodosLancamentos();
+
+        List<LancamentoResponse> list =
+                restTemplate.getForObject("http://LANCAMENTO-SERVICE/lancamento",
+                        List.class);
+
+        log.info("Rest [" + list.toString() + "]");
 
         Map<String, Double> consolidado = new HashMap<>();
         List<FluxoDeCaixaResponse> fluxoDeCaixaResponses = new ArrayList<>();
         double saldo = 0.0;
         for (LancamentoResponse l : lancamentoResponses) {
             String data = l.getDataLancamento().toString().substring(0, 10);
-            log.info("Data [" + data + "]");
             if (consolidado.containsKey(data)) {
                 saldo = consolidado.get(data) + l.getValor();
             } else {
