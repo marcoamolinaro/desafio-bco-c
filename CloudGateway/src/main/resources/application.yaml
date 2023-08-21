@@ -17,7 +17,7 @@ spring:
             - name: CircuitBreaker
               args:
                 name: LANCAMENTO-SERVICE
-                fallbackuri: forward:/microserviceFallBack
+                fallbackuri: forward:/lancamentoserviceFallBack
         - id: FLUXODECAIXA-SERVICE
           uri: lb://FLUXODECAIXA-SERVICE
           predicates:
