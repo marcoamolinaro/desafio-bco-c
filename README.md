@@ -1,4 +1,4 @@
-# desafio-bco-carrefour
+# study case fluxo de caixa
 
 Componentes:
   Lancamento - Classe que conterá os lançamentos
