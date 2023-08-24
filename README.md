@@ -1,5 +1,4 @@
-# desafio-bco-carrefour
-Desafio - Para Projeto no Banco Carrefour
+# desafio-bco-c
 
 Componentes:
   Lancamento - Classe que conterá os lançamentos
