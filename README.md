@@ -1,4 +1,4 @@
-# desafio-bco-c
+# desafio-bco-carrefour
 
 Componentes:
   Lancamento - Classe que conterá os lançamentos
